@@ -1,2 +1,6 @@
 .vscode
 Test*.java
+.settings/*
+.classpath
+.project
+target/*

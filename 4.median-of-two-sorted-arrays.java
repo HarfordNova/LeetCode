@@ -56,13 +56,6 @@ class Solution {
         return getMedianOfArray(nums);
     }
 
-    private boolean isEven(int num) {
-        if (num % 2 == 0)
-            return true;
-        else
-            return false;
-    }
-
     private double getMedianOfArray(int[] nums) {
         if (nums.length == 0)
             return 0.0;
@@ -87,5 +80,12 @@ class Solution {
             median = nums.get(nums.size() / 2);
         }
         return median;
+    }
+
+    private boolean isEven(int num) {
+        if (num % 2 == 0)
+            return true;
+        else
+            return false;
     }
 }

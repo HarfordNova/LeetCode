@@ -7,6 +7,38 @@ import java.util.List;
 public class MedianOfTwoSortedArrays {
 
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        if (nums1.length > nums2.length) {
+            return findMedianSortedArrays(nums2, nums1);
+        }
+
+        int low = 0, high = nums1.length;
+        int subArraySize = (nums1.length + nums2.length + 1) / 2;
+
+        while (low <= high) {
+            int sliceIndexA = (low + high) / 2;
+            int sliceIndexB = subArraySize - sliceIndexA;
+            int maxLeftA = sliceIndexA == 0 ? Integer.MIN_VALUE : nums1[sliceIndexA - 1];
+            int minRightA = sliceIndexA == nums1.length ? Integer.MAX_VALUE : nums1[sliceIndexA];
+            int minRightB = sliceIndexB == nums2.length ? Integer.MAX_VALUE : nums2[sliceIndexB];
+            int maxLeftB = sliceIndexB == 0 ? Integer.MIN_VALUE : nums2[sliceIndexB-1];
+
+            if (maxLeftA <= minRightB && maxLeftB <= minRightA) {
+                if (isEven(nums1.length + nums2.length))
+                    return (Math.max(maxLeftA, maxLeftB) + Math.min(minRightA, minRightB)) / 2.0;
+                else
+                    return (double) Math.max(maxLeftA, maxLeftB);
+
+            }
+            if (maxLeftA > minRightB)
+                high = sliceIndexA - 1;
+            if (maxLeftB > minRightA)
+                low = sliceIndexA + 1;
+        }
+
+        throw new IllegalArgumentException();
+    }
+
+    public double findMedianSortedArrays2(int[] nums1, int[] nums2) {
 
         if (nums1.length == 0 && nums2.length == 1)
             return nums2[0] / 1.0;
